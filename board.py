@@ -1,12 +1,16 @@
 import pieces as Piece
+import copy
 
 class Board:
     def __init__(self):
         self.board = [[None for _ in range(8)] for _ in range(8)]
         self.setup_pieces('white', 7, 6)
         self.setup_pieces('black', 0, 1)
+
+        # i think later I'll have two variables, one for each player.
+        # a player class and a human_player and AI_player class where AI_player can be implemented by subclasses.
     
-    def get_coord(self, number, letter):
+    def get_piece_at_coord(self, number, letter):
         letter = letter.upper()
         letter_int = ord(letter) - 65
         if 0 > letter_int > 7:
@@ -37,11 +41,10 @@ class Board:
         for col in range(8):
             self.board[pawn_row][col] = Piece.Pawn(color, pawn_row, col)
 
-    class Temp:
-        def __init__(self):
-            self.temp = 1
-
     def temp_get_board(self):
         return self.board
+    
+    def copy_board(self):
+        return copy.deepcopy(self.board)
 
 
