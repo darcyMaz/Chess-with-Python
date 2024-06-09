@@ -1,11 +1,16 @@
-# in this class, we'll initialize a board and its pieces
-# then we'll get as input what the players will be
-# then, ok so i want the game to be played here versus the game starts in the chess file.
-# lets figure out the difference. in chess.py, we have Play.play() called and that's it
-# then play does everything.
-# sure lol.
+# chess.py will have one call: Play.play().
+# Every else happens here or within other objects created here.
 
-# ok so play does what?
+
+def play():
+
+    
+
+
+
+    return 0
+
+
 # initialize the board
 # assign players
 #   is player 1 human or AI?
@@ -22,4 +27,21 @@
 #   is_check_mate() (function in the board class)
 #       checks if there's a check or checkmate
 #       i can look up how to implement this maybe idk. doable but tough and time consuming idk
-#   
+#       return 0 for check mate, 1 for stalemate, 2 for check, 3 for nothing
+#       if check_mate or stalemate end the game with 0 or 1 respectively
+#       if check, somehow save all the vectors of attack and make sure next move removes all vectors of attack?
+#           gonna have to think about this one
+#       else do nothing else
+#
+
+# Tasks:
+#   - Pass the board copy into the Piece.get_moves(board_copy) and narrow down the possible moves for each piece.
+#   - Figure out a project wide coordinate system. Ideally it would be Letter, Number which translates to row (number), col (letter) in Board.
+#   - Play.play()
+#       - Assign players dialogue
+#       - Each turn while loop
+#   - Player super class
+#   - Human_player(Player)
+#   - AI_player(Player)  <- can we make this an abstract class? Doesn't have to be cus you choose AI type with dialogue
+#   - Random_Player(AI_Player)
+#   - is_check_mate()
