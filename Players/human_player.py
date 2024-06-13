@@ -52,10 +52,7 @@ class Human_Player(Player.Player):
                 (letter_, number_) = Board.Board.translate_coords_num_to_chess(attack[0], attack[1])
                 piece_to_capture = board[ attack[0] ][ attack[1] ]
                 print(f'{move_index}: Capture {piece_to_capture.__str__()} on {letter_}{number_}.')
-                move_index = move_index + 1
-                # ok after this i want to accept an input, check if it's a number
-                # then choose one of the options
-                # if input > moves - 1 then input = moves.length
+                move_index += 1
 
             while True:
                 move_input = input("Please choose a move by typing its number and pressing enter (type 'q' to select a different piece): ")
@@ -67,12 +64,13 @@ class Human_Player(Player.Player):
                         print("The format of the input is incorrect: The number is out of bounds, try again.")
                         continue
                     if move_input_int > len(moves) - 1:
-                        # this means that we're going to choose an attack.
+                        # this means that we're going to choose a capture.
                         attack_index = move_input_int - len(moves)
-                        # SEND MESSAGE TO BOARD TO CHANGE IT!!!
-                        break
-                    # SEND MESSAGE TO BOARD TO CHANGE IT!!!
-                    # move_index = move_input_int. 
+                        board.move_piece(  piece, attacks[attack_index][0], attacks[attack_index][1] )
+                        return
+                    # this means that we're choosing a move.
+                    board.move_piece(  piece, moves[move_input_int][0], attacks[move_input_int][1] )
+                    return
                 except ValueError:
                     print('The format of the input is incorrect: It should be a number.')
                 
