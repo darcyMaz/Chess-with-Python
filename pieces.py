@@ -18,6 +18,12 @@ class Piece:
         self.row = row
         self.col = col
 
+    def get_position(self):
+        return (self.row, self.col)
+    
+    def get_color(self):
+        return self.color
+
     # I think this should be a function outside of the Piece class because not all pieces should implement it.
     def get_moves_in_direction(self, board):
         moves = []
@@ -46,6 +52,9 @@ class Piece:
                 next_row = next_row + row
                 next_col = next_col + col   
         return (moves, attacks)
+    
+    def __str__(self):
+        return __class__.__name__
 
 class King(Piece):
     def __init__(self, color, row, col):
@@ -75,6 +84,7 @@ class King(Piece):
 
     def get_symbol(self):
         return __class__.__name__[0] if self.color == 'white' else __class__.__name__[0].lower()
+        
 
 class Queen(Piece):
     def __init__(self, color, row, col):

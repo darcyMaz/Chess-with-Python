@@ -13,6 +13,11 @@ class Test:
     def print_id(self):
         print(self.id)
 
+    def get_id(self) -> int:
+        if self.id == 3:
+            return None
+        return self.id
+
 class Test_(Test):
     def __init__(self, name, id):
         super().__init__(name)
@@ -22,11 +27,14 @@ class Test_(Test):
         self.incr_id()
 
 def main():
-    test = Test_('darcy', 3)
-    test.print_name()
-    test.print_id()
-    test.double_incr_id()
-    test.print_id()
+    #test = Test_('darcy', 3)
+    #test.print_name()
+    #test.print_id()
+    #test.double_incr_id()
+    #test.print_id()
+    #print(test.get_id())
+    print(ord('A'))
+
 
 
 if __name__ == "__main__":
