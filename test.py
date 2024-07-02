@@ -33,7 +33,11 @@ def main():
     #test.double_incr_id()
     #test.print_id()
     #print(test.get_id())
-    print(ord('A'))
+    #print(ord('A'))
+    list = [1,2,4,5,6,2]
+    print(list)
+    two = list.pop(2)
+    print(list, two)
 
 
 

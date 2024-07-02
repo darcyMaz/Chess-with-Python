@@ -41,7 +41,7 @@ class Piece:
                 pieceAtNextSpot = board[next_row][next_row]
                 if pieceAtNextSpot != None:
                     # Check if the spot in this directon has an opposing piece.
-                    if pieceAtNextSpot.color != self.color:
+                    if pieceAtNextSpot.get_color() != self.color:
                         attacks.append( (next_row, next_col) )
                     # As we have encountered a piece in this direction, we are blocked and must check the next direction.
                     continue
@@ -72,7 +72,7 @@ class King(Piece):
                 pieceAtNextSpot = board[self.row + row][self.col + col]
                 if pieceAtNextSpot != None:
                     # Add it to possible attacks if it's another color.
-                    if pieceAtNextSpot.color != self.color:
+                    if pieceAtNextSpot.get_color() != self.color:
                         attacks.append( (self.row + row,self.col + col ) )
                         continue
                 # Add the next possible move to moves as there is no other piece occupying that space.
@@ -130,7 +130,7 @@ class Knight(Piece):
                 pieceAtNextSpot = board[self.row + row][self.col + col]
                 if pieceAtNextSpot != None:
                     # Add it to possible attacks if it's another color.
-                    if pieceAtNextSpot.color != self.color:
+                    if pieceAtNextSpot.get_color() != self.color:
                         attacks.append( (self.row + row, self.col + col) )
                         continue
 

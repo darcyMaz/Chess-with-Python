@@ -5,14 +5,26 @@ class Human_Player(Player.Player):
     def __init__(self, playerNum, color):
         super().__init__(playerNum, color)
     
-    # I think the actual board should be passed into the players instead of the copy board.
-    # This will allow either player to edit the board from within the class.
     def move(self, board_input: Board.Board):
-        # Should the while loop be here or outside the move func... idk.
         
         board = board_input.copy_board()
 
+        piece_dict = {}
+        stalemate_bool = False
+        for row in board:
+            for col in row:
+                current_piece = board[row][col]
+                if current_piece.get_color() == self.color:
+                    current_moves = current_piece.get_moves()
+                    piece_dict.append( (row,col), current_moves )
+                    if len(current_moves[0]) + len(current_moves[1]) != 0 and not stalemate_bool:
+                        stalemate_bool = True
+
         print(f"It is Player {self.playerNum}'s turn. As a human player they must choose a move.")
+
+        if stalemate_bool:
+            print(f"There are no moves left for {self.playerNum} to play. A stalemate has been reached.")
+
         print(f"Player {self.playerNum} is playing with the {self.color} pieces.")
         print(f"Please choose a coordinate with a {self.color} piece on it. Its possible moves will be listed out.")
         # reminder that white pieces are capitalized
@@ -23,6 +35,7 @@ class Human_Player(Player.Player):
             if len(coord) != 2:
                 print("The format of the input is incorrect: The length must be 2.")
                 continue
+
             letter = coord[0]
             number = coord[1]
             
@@ -34,16 +47,25 @@ class Human_Player(Player.Player):
                 print('The format of the input is incorrect: The second character is not a number.')
                 continue
 
-            piece = Board.Board.get_piece_at_coord(board, number_int, letter)
+            piece = board_input.get_piece_at_coord(number_int, letter)
+
+            if piece == None:
+                print('The coordinate you have chosen has no piece on it. Please choose another coordinate.')
+                continue
+            if piece.get_color() != self.color:
+                print('This piece is the wrong color. Please choose another coordinate.')
+                continue
 
             print(f"This piece is a {piece.str()}.")
-            moves_and_attacks = piece.get_moves(board)
+            moves_and_attacks = piece_dict.get( piece.get_position() )
             moves = moves_and_attacks[0]
             attacks = moves_and_attacks[1]
 
+            if len(moves) + len(attacks) == 0:
+                print('This piece has no available moves. Please choose another coordinate.')
+                continue
+
             move_index = 0
-            # The 'move' is a set of coords (row, col) which I need to translate and then print on a line.
-            # In the future I will standardize the coord system and print out the chess grammar as well.
             for move in moves:
                 (letter_, number_) = Board.Board.translate_coords_num_to_chess(move[0], move[1])
                 print(f'{move_index}: Move to {letter_}{number_}.')
@@ -68,7 +90,7 @@ class Human_Player(Player.Player):
                         attack_index = move_input_int - len(moves)
                         board.move_piece(  piece, attacks[attack_index][0], attacks[attack_index][1] )
                         return
-                    # this means that we're choosing a move.
+                    # this means that we're not choosing a capture, instead a normal move.
                     board.move_piece(  piece, moves[move_input_int][0], attacks[move_input_int][1] )
                     return
                 except ValueError:

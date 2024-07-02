@@ -7,9 +7,6 @@ class Board:
         self.setup_pieces('white', 7, 6)
         self.setup_pieces('black', 0, 1)
 
-        # i think later I'll have two variables, one for each player.
-        # a player class and a human_player and AI_player class where AI_player can be implemented by subclasses.
-    
     def translate_coords_num_to_chess(row: int, col: int):
         number = 8 - row
         if 7 < number < 0:
@@ -94,6 +91,9 @@ class Board:
                 piece.update_position(row_color, 3)
                 self.board[row_color][3] = rook
             
+        # Special case: En passent (the position of the pawn attacking is not the same as the pawn captured)
+        # NOT DONE YET
+
         self.board[curr_row][curr_col] = None
         piece.update_position(row,col)
         self.board[row][col] = piece

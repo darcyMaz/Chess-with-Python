@@ -1,12 +1,31 @@
+import pieces as Piece
+import board as Board
+from Players import human_player as Human
+from Players import random_player as Rando
+
 # chess.py will have one call: Play.play().
 # Every else happens here or within other objects created here.
 
 
 def play():
 
-    
+    board = Board.Board()
 
+    # There should be a dialogue here instead of automatic assignment.
+    player1 = Human.Human_Player(1, 'white')
+    player2 = Rando.Random_Player(2, 'black')
 
+    # So i need to make a while loop where each loop is a back and forth between players.
+    # The end of each loop must look at some returned number. 0 for normal 1 for stalemate 2 for checkmate
+    # obvs i need to make a checkmate check, that needs 
+        #  (1) king has a function which looks at whether any other pieces attack it and 
+        #  (2) if king can't move checkmate; ...
+
+    # If the king is in check and the checked player has no legal move to get out of check, the king is checkmated and the player loses
+
+    while True:
+        input_ = input("Turn starts:")
+        break
 
     return 0
 
